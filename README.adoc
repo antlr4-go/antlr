@@ -1,0 +1,59 @@
+= Go Runtime Official Module Repo
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+.! Important !
+****
+  - Do not submit PRs or any change requests to this REPO
+  - This REPO is read only and is updated by the ANTLR team to create a new release of the Go Runtime for ANTLR
+  - This repo contains the Go runtime that your generated projects will import
+  - It is a copy of the Go runtime, embedded in the development repo at https://github.com/antlr/antlr4
+    and holds both the current dev branch and the current release branch.
+
+TIP: Please submit PRs via a clone of the https://github.com/antlr/antlr4 repo, not here.
+****
+
+== Introduction
+
+This repo contains the official modules for the Go Runtime for ANTLR. It is a copy of the official runtime which is
+maintained at: https://github.com/antlr/antlr4/tree/master/runtime/Go/antlr and is updated by the ANTLR team to create
+the official Go runtime release only. No development work is carried out in this repo.
+
+=== Why?
+
+The `go get` command as of later releases of go, is unable to retrieve the Go runtime when it is embedded so
+deeply in the main repo and so a go get, while retrieving the correct source code for the runtime, will not correctly
+resolve tags and so will create a reference in your `go.mod` file that is unclear, will not upgrade smoothly and
+causes confusion.
+
+For instance teh current Go runtime release, which is tagged with v4.12.0 is retrieved by go get as:
+
+```sh
+require (
+	github.com/antlr/antlr4/runtime/Go/antlr/v4 v4.0.0-20230219212500-1f9a474cc2dc
+)
+```
+
+Where you would expect to see something like:
+
+```sh
+require (
+    github.com/antlr/antlr4/runtime/Go/antlr/v4 v4.12.0
+)
+```
+
+The decisions was taken to create a separate org in a separate repo to hold the official Go runtime for ANTLR and
+from whence users can expect `go get` to behave as expected.
+
+
+.! Documentation !
+****
+Please read the official documentation at: https://github.com/antlr/antlr4/blob/master/doc/index.md for tips on
+migrating existing projects to use the new module location and for information on how to use the Go runtime in
+general.
+****
