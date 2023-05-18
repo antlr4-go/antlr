@@ -1,4 +1,4 @@
-= Go Runtime Official Module Repo
+= ANLTR4 Go Runtime Module Repo
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
@@ -9,29 +9,29 @@ endif::[]
 
 .! Important !
 ****
-  - Do not submit PRs or any change requests to this REPO
-  - This REPO is read only and is updated by the ANTLR team to create a new release of the Go Runtime for ANTLR
+  - Do not submit PRs or any change requests to this repo
+  - This repo is read only and is updated by the ANTLR team to create a new release of the Go Runtime for ANTLR
   - This repo contains the Go runtime that your generated projects will import
-  - It is a copy of the Go runtime, embedded in the development repo at https://github.com/antlr/antlr4
+  - It is a copy of the Go runtime, which is kept in the development repo at https://github.com/antlr/antlr4
     and holds both the current dev branch and the current release branch.
 
-TIP: Please submit PRs via a clone of the https://github.com/antlr/antlr4 repo, not here.
+IMPORTANT: Please submit PRs via a clone of the https://github.com/antlr/antlr4 repo, and not here.
 ****
 
 == Introduction
 
-This repo contains the official modules for the Go Runtime for ANTLR. It is a copy of the official runtime which is
-maintained at: https://github.com/antlr/antlr4/tree/master/runtime/Go/antlr and is updated by the ANTLR team to create
-the official Go runtime release only. No development work is carried out in this repo.
+This repo contains the official modules for the Go Runtime for ANTLR. It is a copy of the runtime maintained
+at: https://github.com/antlr/antlr4/tree/master/runtime/Go/antlr and is automatically updated by the ANTLR team to create
+the official Go runtime release only. No development work is carried out in this repo and PRs are not accepted here.
 
 === Why?
 
-The `go get` command as of later releases of go, is unable to retrieve the Go runtime when it is embedded so
-deeply in the main repo and so a go get, while retrieving the correct source code for the runtime, will not correctly
-resolve tags and so will create a reference in your `go.mod` file that is unclear, will not upgrade smoothly and
+The `go get` command is unable to retrieve the Go runtime when it is embedded so
+deeply in the main repo. A `go get` against the `antlr/antlr4` repo, while retrieving the correct source code for the runtime,
+does not correctly resolve tags and will create a reference in your `go.mod` file that is unclear, will not upgrade smoothly and
 causes confusion.
 
-For instance teh current Go runtime release, which is tagged with v4.12.0 is retrieved by go get as:
+For instance, the current Go runtime release, which is tagged with v4.12.0 in `antlr/antlr4` is retrieved by go get as:
 
 ```sh
 require (
@@ -47,7 +47,7 @@ require (
 )
 ```
 
-The decisions was taken to create a separate org in a separate repo to hold the official Go runtime for ANTLR and
+The decision was taken to create a separate org in a separate repo to hold the official Go runtime for ANTLR and
 from whence users can expect `go get` to behave as expected.
 
 
