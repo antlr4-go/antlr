@@ -1,10 +1,10 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/antlr4-go/antlr?style=flat-square)](https://goreportcard.com/report/github.com/antlr4-go/antlr)
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/github.com/gatherstars-com/jwz)](https://pkg.go.dev/github.com/gatherstars-com/jwz)
-[![Release](https://img.shields.io/github/v/release/gatherstars-com/jwz?sort=semver&style=flat-square)](https://github.com/gatherstars-com/jwz/releases/latest)
-[![Release](https://img.shields.io/github/go-mod/go-version/gatherstars-com/jwz?style=flat-square)](https://github.com/gatherstars-com/jwz/releases/latest)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg?style=flat-square)](https://github.com/gatherstars-com/jwz/commit-activity)
-[![GitHub license](https://img.shields.io/github/license/gatherstars-com/jwz.svg)](https://www.gathersatrs.com)
-[![GitHub stars](https://img.shields.io/github/stars/gatherstars-com/jwz.svg?style=flat-square&label=Star&maxAge=2592000)](https://GitHub.com/Naereen/StrapDown.js/stargazers/)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/github.com/antlr4-go/antlr)](https://pkg.go.dev/github.com/antlr4-go/antlr)
+[![Release](https://img.shields.io/github/v/release/antlr4-go/antlr?sort=semver&style=flat-square)](https://github.com/gatherstars-com/antlr4-go/antlr/latest)
+[![Release](https://img.shields.io/github/go-mod/go-version/antlr4-go/antlr?style=flat-square)](https://github.com/gatherstars-com/antlr4-go/antlr/latest)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg?style=flat-square)](https://github.com/antlr4-go/antlr/commit-activity)
+[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+[![GitHub stars](https://img.shields.io/github/stars/antlr4-go/antlr?style=flat-square&label=Star&maxAge=2592000)](https://GitHub.com/Naereen/StrapDown.js/stargazers/)
 # ANTLR4 Go Runtime Module Repo
 
 IMPORTANT: Please submit PRs via a clone of the https://github.com/antlr/antlr4 repo, and not here.
