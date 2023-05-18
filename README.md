@@ -1,28 +1,25 @@
-= ANLTR4 Go Runtime Module Repo
-ifdef::env-github[]
-:tip-caption: :bulb:
-:note-caption: :information_source:
-:important-caption: :heavy_exclamation_mark:
-:caution-caption: :fire:
-:warning-caption: :warning:
-endif::[]
-
-.! Important !
-****
-  - Do not submit PRs or any change requests to this repo
-  - This repo is read only and is updated by the ANTLR team to create a new release of the Go Runtime for ANTLR
-  - This repo contains the Go runtime that your generated projects will import
-  - It is a copy of the Go runtime, which is kept in the development repo at https://github.com/antlr/antlr4
-    and holds both the current dev branch and the current release branch.
+[![Go Report Card](https://goreportcard.com/badge/github.com/antlr4-go/antlr?style=flat-square)](https://goreportcard.com/report/github.com/antlr4-go/antlr)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/github.com/antlr4-go/antlr)](https://pkg.go.dev/github.com/antlr4-go/antlr)
+[![Release](https://img.shields.io/github/v/release/antlr4-go/antlr?sort=semver&style=flat-square)](https://github.com/gatherstars-com/antlr4-go/antlr/latest)
+[![Release](https://img.shields.io/github/go-mod/go-version/antlr4-go/antlr?style=flat-square)](https://github.com/gatherstars-com/antlr4-go/antlr/latest)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg?style=flat-square)](https://github.com/antlr4-go/antlr/commit-activity)
+[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+[![GitHub stars](https://img.shields.io/github/stars/antlr4-go/antlr?style=flat-square&label=Star&maxAge=2592000)](https://GitHub.com/Naereen/StrapDown.js/stargazers/)
+# ANTLR4 Go Runtime Module Repo
 
 IMPORTANT: Please submit PRs via a clone of the https://github.com/antlr/antlr4 repo, and not here.
-****
 
-== Introduction
+  - Do not submit PRs or any change requests to this repo
+  - This repo is read only and is updated by the ANTLR team to create a new release of the Go Runtime for ANTLR
+  - This repo contains the Go runtime that your generated projects should import
+
+## Introduction
 
 This repo contains the official modules for the Go Runtime for ANTLR. It is a copy of the runtime maintained
 at: https://github.com/antlr/antlr4/tree/master/runtime/Go/antlr and is automatically updated by the ANTLR team to create
 the official Go runtime release only. No development work is carried out in this repo and PRs are not accepted here.
+
+The dev branch of this repo is kept in sync with the dev branch of the main ANTLR repo and is updated periodically.
 
 === Why?
 
@@ -51,9 +48,7 @@ The decision was taken to create a separate org in a separate repo to hold the o
 from whence users can expect `go get` to behave as expected.
 
 
-.! Documentation !
-****
+# Documentation
 Please read the official documentation at: https://github.com/antlr/antlr4/blob/master/doc/index.md for tips on
 migrating existing projects to use the new module location and for information on how to use the Go runtime in
 general.
-****
