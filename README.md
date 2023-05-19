@@ -21,14 +21,14 @@ the official Go runtime release only. No development work is carried out in this
 
 The dev branch of this repo is kept in sync with the dev branch of the main ANTLR repo and is updated periodically.
 
-=== Why?
+### Why?
 
 The `go get` command is unable to retrieve the Go runtime when it is embedded so
 deeply in the main repo. A `go get` against the `antlr/antlr4` repo, while retrieving the correct source code for the runtime,
 does not correctly resolve tags and will create a reference in your `go.mod` file that is unclear, will not upgrade smoothly and
 causes confusion.
 
-For instance, the current Go runtime release, which is tagged with v4.12.0 in `antlr/antlr4` is retrieved by go get as:
+For instance, the current Go runtime release, which is tagged with v4.13.0 in `antlr/antlr4` is retrieved by go get as:
 
 ```sh
 require (
@@ -36,11 +36,11 @@ require (
 )
 ```
 
-Where you would expect to see something like:
+Where you would expect to see:
 
 ```sh
 require (
-    github.com/antlr/antlr4/runtime/Go/antlr/v4 v4.12.0
+    github.com/antlr/antlr4/runtime/Go/antlr/v4 v4.13.0
 )
 ```
 
