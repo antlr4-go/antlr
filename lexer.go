@@ -165,6 +165,7 @@ func (b *BaseLexer) setTokenFactory(f TokenFactory) {
 
 func (b *BaseLexer) safeMatch() (ret int) {
 	defer func() {
+		// TODO: look at losing the panic()/recover() here
 		if e := recover(); e != nil {
 			if re, ok := e.(RecognitionException); ok {
 				b.notifyListeners(re) // Report error
@@ -206,9 +207,8 @@ func (b *BaseLexer) NextToken() Token {
 		continueOuter := false
 		for {
 			b.thetype = TokenInvalidType
-			ttype := LexerSkip
 
-			ttype = b.safeMatch()
+			ttype := b.safeMatch() // Defaults to LexerSkip
 
 			if b.input.LA(1) == TokenEOF {
 				b.hitEOF = true
