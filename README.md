@@ -35,7 +35,7 @@ require (
 	github.com/antlr/antlr4/runtime/Go/antlr/v4 v4.0.0-20230219212500-1f9a474cc2dc
 )
 ```
-q
+
 Where you would expect to see:
 
 ```sh
