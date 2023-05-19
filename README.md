@@ -1,7 +1,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/antlr4-go/antlr?style=flat-square)](https://goreportcard.com/report/github.com/antlr4-go/antlr)
 [![PkgGoDev](https://pkg.go.dev/badge/github.com/github.com/antlr4-go/antlr)](https://pkg.go.dev/github.com/antlr4-go/antlr)
-[![Release](https://img.shields.io/github/v/release/antlr4-go/antlr?sort=semver&style=flat-square)](https://github.com/gatherstars-com/antlr4-go/antlr/latest)
-[![Release](https://img.shields.io/github/go-mod/go-version/antlr4-go/antlr?style=flat-square)](https://github.com/gatherstars-com/antlr4-go/antlr/latest)
+[![Release](https://img.shields.io/github/v/release/antlr4-go/antlr?sort=semver&style=flat-square)](https://github.com/antlr4-go/antlr/releases/latest)
+[![Release](https://img.shields.io/github/go-mod/go-version/antlr4-go/antlr?style=flat-square)](https://github.com/antlr4-go/antlr/releases/latest)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg?style=flat-square)](https://github.com/antlr4-go/antlr/commit-activity)
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![GitHub stars](https://img.shields.io/github/stars/antlr4-go/antlr?style=flat-square&label=Star&maxAge=2592000)](https://GitHub.com/Naereen/StrapDown.js/stargazers/)
@@ -21,14 +21,14 @@ the official Go runtime release only. No development work is carried out in this
 
 The dev branch of this repo is kept in sync with the dev branch of the main ANTLR repo and is updated periodically.
 
-=== Why?
+### Why?
 
 The `go get` command is unable to retrieve the Go runtime when it is embedded so
 deeply in the main repo. A `go get` against the `antlr/antlr4` repo, while retrieving the correct source code for the runtime,
 does not correctly resolve tags and will create a reference in your `go.mod` file that is unclear, will not upgrade smoothly and
 causes confusion.
 
-For instance, the current Go runtime release, which is tagged with v4.12.0 in `antlr/antlr4` is retrieved by go get as:
+For instance, the current Go runtime release, which is tagged with v4.13.0 in `antlr/antlr4` is retrieved by go get as:
 
 ```sh
 require (
@@ -36,11 +36,11 @@ require (
 )
 ```
 
-Where you would expect to see something like:
+Where you would expect to see:
 
 ```sh
 require (
-    github.com/antlr/antlr4/runtime/Go/antlr/v4 v4.12.0
+    github.com/antlr/antlr4/runtime/Go/antlr/v4 v4.13.0
 )
 ```
 
