@@ -429,3 +429,8 @@ func (b *BaseLexer) Recover(re RecognitionException) {
 func (b *BaseLexer) ModeStackLength() int {
 	return len(b.modeStack)
 }
+
+// GetMode returns the current lexer mode.
+func (b *BaseLexer) GetMode() int {
+	return b.mode
+}
