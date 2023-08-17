@@ -424,3 +424,8 @@ func (b *BaseLexer) Recover(re RecognitionException) {
 		}
 	}
 }
+
+// ModeStackLength returns the number of active modes.
+func (b *BaseLexer) ModeStackLength() int {
+	return len(b.modeStack)
+}
