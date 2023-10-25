@@ -102,8 +102,8 @@ func NewBaseParser(input TokenStream) *BaseParser {
 //goland:noinspection GoUnusedGlobalVariable
 var bypassAltsAtnCache = make(map[string]int)
 
-// reset the parser's state//
-func (p *BaseParser) reset() {
+// Reset the parser's state//
+func (p *BaseParser) Reset() {
 	if p.input != nil {
 		p.input.Seek(0)
 	}
@@ -389,7 +389,7 @@ func (p *BaseParser) GetTokenStream() TokenStream {
 // SetTokenStream installs input as the token stream and resets the parser.
 func (p *BaseParser) SetTokenStream(input TokenStream) {
 	p.input = nil
-	p.reset()
+	p.Reset()
 	p.input = input
 }
 
@@ -584,22 +584,22 @@ func (p *BaseParser) IsExpectedToken(symbol int) bool {
 	ctx := p.ctx
 	s := atn.states[p.state]
 	following := atn.NextTokens(s, nil)
-	if following.contains(symbol) {
+	if following.Contains(symbol) {
 		return true
 	}
-	if !following.contains(TokenEpsilon) {
+	if !following.Contains(TokenEpsilon) {
 		return false
 	}
-	for ctx != nil && ctx.GetInvokingState() >= 0 && following.contains(TokenEpsilon) {
+	for ctx != nil && ctx.GetInvokingState() >= 0 && following.Contains(TokenEpsilon) {
 		invokingState := atn.states[ctx.GetInvokingState()]
 		rt := invokingState.GetTransitions()[0]
 		following = atn.NextTokens(rt.(*RuleTransition).followState, nil)
-		if following.contains(symbol) {
+		if following.Contains(symbol) {
 			return true
 		}
 		ctx = ctx.GetParent().(ParserRuleContext)
 	}
-	if following.contains(TokenEpsilon) && symbol == TokenEOF {
+	if following.Contains(TokenEpsilon) && symbol == TokenEOF {
 		return true
 	}
 

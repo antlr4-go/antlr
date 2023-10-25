@@ -152,7 +152,7 @@ func (a *ATN) getExpectedTokens(stateNumber int, ctx RuleContext) *IntervalSet {
 	s := a.states[stateNumber]
 	following := a.NextTokens(s, nil)
 
-	if !following.contains(TokenEpsilon) {
+	if !following.Contains(TokenEpsilon) {
 		return following
 	}
 
@@ -161,7 +161,7 @@ func (a *ATN) getExpectedTokens(stateNumber int, ctx RuleContext) *IntervalSet {
 	expected.addSet(following)
 	expected.removeOne(TokenEpsilon)
 
-	for ctx != nil && ctx.GetInvokingState() >= 0 && following.contains(TokenEpsilon) {
+	for ctx != nil && ctx.GetInvokingState() >= 0 && following.Contains(TokenEpsilon) {
 		invokingState := a.states[ctx.GetInvokingState()]
 		rt := invokingState.GetTransitions()[0]
 
@@ -171,9 +171,21 @@ func (a *ATN) getExpectedTokens(stateNumber int, ctx RuleContext) *IntervalSet {
 		ctx = ctx.GetParent().(RuleContext)
 	}
 
-	if following.contains(TokenEpsilon) {
+	if following.Contains(TokenEpsilon) {
 		expected.addOne(TokenEOF)
 	}
 
 	return expected
+}
+
+func (a *ATN) GetRuleToStartState(index int) *RuleStartState {
+	return a.ruleToStartState[index]
+}
+
+func (a *ATN) GetRuleToStopState(index int) *RuleStopState {
+	return a.ruleToStopState[index]
+}
+
+func (a *ATN) GetMaxTokenType() int {
+	return a.maxTokenType
 }

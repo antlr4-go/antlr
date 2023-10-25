@@ -322,7 +322,7 @@ func (l *LexerATNSimulator) accept(input CharStream, lexerActionExecutor *LexerA
 
 func (l *LexerATNSimulator) getReachableTarget(trans Transition, t int) ATNState {
 	if trans.Matches(t, 0, LexerMaxCharValue) {
-		return trans.getTarget()
+		return trans.GetTarget()
 	}
 
 	return nil
@@ -331,7 +331,7 @@ func (l *LexerATNSimulator) getReachableTarget(trans Transition, t int) ATNState
 func (l *LexerATNSimulator) computeStartState(input CharStream, p ATNState) *ATNConfigSet {
 	configs := NewOrderedATNConfigSet()
 	for i := 0; i < len(p.GetTransitions()); i++ {
-		target := p.GetTransitions()[i].getTarget()
+		target := p.GetTransitions()[i].GetTarget()
 		cfg := NewLexerATNConfig6(target, i+1, BasePredictionContextEMPTY)
 		l.closure(input, cfg, configs, false, false, false)
 	}
@@ -408,15 +408,15 @@ func (l *LexerATNSimulator) getEpsilonTarget(input CharStream, config *ATNConfig
 
 	var cfg *ATNConfig
 
-	if trans.getSerializationType() == TransitionRULE {
+	if trans.GetSerializationType() == TransitionRULE {
 
 		rt := trans.(*RuleTransition)
 		newContext := SingletonBasePredictionContextCreate(config.context, rt.followState.GetStateNumber())
-		cfg = NewLexerATNConfig2(config, trans.getTarget(), newContext)
+		cfg = NewLexerATNConfig2(config, trans.GetTarget(), newContext)
 
-	} else if trans.getSerializationType() == TransitionPRECEDENCE {
+	} else if trans.GetSerializationType() == TransitionPRECEDENCE {
 		panic("Precedence predicates are not supported in lexers.")
-	} else if trans.getSerializationType() == TransitionPREDICATE {
+	} else if trans.GetSerializationType() == TransitionPREDICATE {
 		// Track traversing semantic predicates. If we traverse,
 		// we cannot add a DFA state for l "reach" computation
 		// because the DFA would not test the predicate again in the
@@ -442,9 +442,9 @@ func (l *LexerATNSimulator) getEpsilonTarget(input CharStream, config *ATNConfig
 		}
 		configs.hasSemanticContext = true
 		if l.evaluatePredicate(input, pt.ruleIndex, pt.predIndex, speculative) {
-			cfg = NewLexerATNConfig4(config, trans.getTarget())
+			cfg = NewLexerATNConfig4(config, trans.GetTarget())
 		}
-	} else if trans.getSerializationType() == TransitionACTION {
+	} else if trans.GetSerializationType() == TransitionACTION {
 		if config.context == nil || config.context.hasEmptyPath() {
 			// execute actions anywhere in the start rule for a token.
 			//
@@ -459,19 +459,19 @@ func (l *LexerATNSimulator) getEpsilonTarget(input CharStream, config *ATNConfig
 			// additional modifications are needed before we can support
 			// the split operation.
 			lexerActionExecutor := LexerActionExecutorappend(config.lexerActionExecutor, l.atn.lexerActions[trans.(*ActionTransition).actionIndex])
-			cfg = NewLexerATNConfig3(config, trans.getTarget(), lexerActionExecutor)
+			cfg = NewLexerATNConfig3(config, trans.GetTarget(), lexerActionExecutor)
 		} else {
 			// ignore actions in referenced rules
-			cfg = NewLexerATNConfig4(config, trans.getTarget())
+			cfg = NewLexerATNConfig4(config, trans.GetTarget())
 		}
-	} else if trans.getSerializationType() == TransitionEPSILON {
-		cfg = NewLexerATNConfig4(config, trans.getTarget())
-	} else if trans.getSerializationType() == TransitionATOM ||
-		trans.getSerializationType() == TransitionRANGE ||
-		trans.getSerializationType() == TransitionSET {
+	} else if trans.GetSerializationType() == TransitionEPSILON {
+		cfg = NewLexerATNConfig4(config, trans.GetTarget())
+	} else if trans.GetSerializationType() == TransitionATOM ||
+		trans.GetSerializationType() == TransitionRANGE ||
+		trans.GetSerializationType() == TransitionSET {
 		if treatEOFAsEpsilon {
 			if trans.Matches(TokenEOF, 0, LexerMaxCharValue) {
-				cfg = NewLexerATNConfig4(config, trans.getTarget())
+				cfg = NewLexerATNConfig4(config, trans.GetTarget())
 			}
 		}
 	}

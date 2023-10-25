@@ -20,7 +20,7 @@ type SemanticContext interface {
 	Equals(other Collectable[SemanticContext]) bool
 	Hash() int
 
-	evaluate(parser Recognizer, outerContext RuleContext) bool
+	Evaluate(parser Recognizer, outerContext RuleContext) bool
 	evalPrecedence(parser Recognizer, outerContext RuleContext) SemanticContext
 
 	String() string
@@ -83,7 +83,7 @@ func (p *Predicate) evalPrecedence(_ Recognizer, _ RuleContext) SemanticContext 
 	return p
 }
 
-func (p *Predicate) evaluate(parser Recognizer, outerContext RuleContext) bool {
+func (p *Predicate) Evaluate(parser Recognizer, outerContext RuleContext) bool {
 
 	var localctx RuleContext
 
@@ -134,7 +134,7 @@ func NewPrecedencePredicate(precedence int) *PrecedencePredicate {
 	return p
 }
 
-func (p *PrecedencePredicate) evaluate(parser Recognizer, outerContext RuleContext) bool {
+func (p *PrecedencePredicate) Evaluate(parser Recognizer, outerContext RuleContext) bool {
 	return parser.Precpred(outerContext, p.precedence)
 }
 
@@ -258,9 +258,9 @@ func (a *AND) Equals(other Collectable[SemanticContext]) bool {
 // <p>
 // The evaluation of predicates by a context is short-circuiting, but
 // unordered.</p>
-func (a *AND) evaluate(parser Recognizer, outerContext RuleContext) bool {
+func (a *AND) Evaluate(parser Recognizer, outerContext RuleContext) bool {
 	for i := 0; i < len(a.opnds); i++ {
-		if !a.opnds[i].evaluate(parser, outerContext) {
+		if !a.opnds[i].Evaluate(parser, outerContext) {
 			return false
 		}
 	}
@@ -405,9 +405,9 @@ func (o *OR) Equals(other Collectable[SemanticContext]) bool {
 // <p>
 // The evaluation of predicates by o context is short-circuiting, but
 // unordered.</p>
-func (o *OR) evaluate(parser Recognizer, outerContext RuleContext) bool {
+func (o *OR) Evaluate(parser Recognizer, outerContext RuleContext) bool {
 	for i := 0; i < len(o.opnds); i++ {
-		if o.opnds[i].evaluate(parser, outerContext) {
+		if o.opnds[i].Evaluate(parser, outerContext) {
 			return true
 		}
 	}

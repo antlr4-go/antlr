@@ -121,7 +121,7 @@ func (d *DefaultErrorStrategy) ReportError(recognizer Parser, e RecognitionExcep
 func (d *DefaultErrorStrategy) Recover(recognizer Parser, _ RecognitionException) {
 
 	if d.lastErrorIndex == recognizer.GetInputStream().Index() &&
-		d.lastErrorStates != nil && d.lastErrorStates.contains(recognizer.GetState()) {
+		d.lastErrorStates != nil && d.lastErrorStates.Contains(recognizer.GetState()) {
 		// uh oh, another error at same token index and previously-Visited
 		// state in ATN must be a case where LT(1) is in the recovery
 		// token set so nothing got consumed. Consume a single token
@@ -196,7 +196,7 @@ func (d *DefaultErrorStrategy) Sync(recognizer Parser) {
 
 	// try cheaper subset first might get lucky. seems to shave a wee bit off
 	nextTokens := recognizer.GetATN().NextTokens(s, nil)
-	if nextTokens.contains(TokenEpsilon) || nextTokens.contains(la) {
+	if nextTokens.Contains(TokenEpsilon) || nextTokens.Contains(la) {
 		return
 	}
 
@@ -387,9 +387,9 @@ func (d *DefaultErrorStrategy) SingleTokenInsertion(recognizer Parser) bool {
 	// is free to conjure up and insert the missing token
 	atn := recognizer.GetInterpreter().atn
 	currentState := atn.states[recognizer.GetState()]
-	next := currentState.GetTransitions()[0].getTarget()
+	next := currentState.GetTransitions()[0].GetTarget()
 	expectingAtLL2 := atn.NextTokens(next, recognizer.GetParserRuleContext())
-	if expectingAtLL2.contains(currentSymbolType) {
+	if expectingAtLL2.Contains(currentSymbolType) {
 		d.ReportMissingToken(recognizer)
 		return true
 	}
@@ -415,7 +415,7 @@ func (d *DefaultErrorStrategy) SingleTokenInsertion(recognizer Parser) bool {
 func (d *DefaultErrorStrategy) SingleTokenDeletion(recognizer Parser) Token {
 	NextTokenType := recognizer.GetTokenStream().LA(2)
 	expecting := d.GetExpectedTokens(recognizer)
-	if expecting.contains(NextTokenType) {
+	if expecting.Contains(NextTokenType) {
 		d.ReportUnwantedToken(recognizer)
 		// print("recoverFromMisMatchedToken deleting " \
 		// + str(recognizer.GetTokenStream().LT(1)) \
@@ -627,7 +627,7 @@ func (d *DefaultErrorStrategy) GetErrorRecoverySet(recognizer Parser) *IntervalS
 // Consume tokens until one Matches the given token set.//
 func (d *DefaultErrorStrategy) consumeUntil(recognizer Parser, set *IntervalSet) {
 	ttype := recognizer.GetTokenStream().LA(1)
-	for ttype != TokenEOF && !set.contains(ttype) {
+	for ttype != TokenEOF && !set.Contains(ttype) {
 		recognizer.Consume()
 		ttype = recognizer.GetTokenStream().LA(1)
 	}

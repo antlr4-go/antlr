@@ -166,7 +166,7 @@ func (c *CommonTokenStream) GetTokens(start int, stop int, types *IntervalSet) [
 			break
 		}
 
-		if types == nil || types.contains(t.GetTokenType()) {
+		if types == nil || types.Contains(t.GetTokenType()) {
 			subset = append(subset, t)
 		}
 	}

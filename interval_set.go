@@ -81,14 +81,14 @@ func (i *IntervalSet) first() int {
 }
 
 func (i *IntervalSet) addOne(v int) {
-	i.addInterval(NewInterval(v, v+1))
+	i.AddInterval(NewInterval(v, v+1))
 }
 
 func (i *IntervalSet) addRange(l, h int) {
-	i.addInterval(NewInterval(l, h+1))
+	i.AddInterval(NewInterval(l, h+1))
 }
 
-func (i *IntervalSet) addInterval(v Interval) {
+func (i *IntervalSet) AddInterval(v Interval) {
 	if i.intervals == nil {
 		i.intervals = make([]Interval, 0)
 		i.intervals = append(i.intervals, v)
@@ -125,26 +125,32 @@ func (i *IntervalSet) addInterval(v Interval) {
 	}
 }
 
+func (i *IntervalSet) AddAll(set *IntervalSet) {
+	for _, v := range set.intervals {
+		i.AddInterval(v)
+	}
+}
+
 func (i *IntervalSet) addSet(other *IntervalSet) *IntervalSet {
 	if other.intervals != nil {
 		for k := 0; k < len(other.intervals); k++ {
 			i2 := other.intervals[k]
-			i.addInterval(NewInterval(i2.Start, i2.Stop))
+			i.AddInterval(NewInterval(i2.Start, i2.Stop))
 		}
 	}
 	return i
 }
 
-func (i *IntervalSet) complement(start int, stop int) *IntervalSet {
+func (i *IntervalSet) Complement(start int, stop int) *IntervalSet {
 	result := NewIntervalSet()
-	result.addInterval(NewInterval(start, stop+1))
+	result.AddInterval(NewInterval(start, stop+1))
 	for j := 0; j < len(i.intervals); j++ {
 		result.removeRange(i.intervals[j])
 	}
 	return result
 }
 
-func (i *IntervalSet) contains(item int) bool {
+func (i *IntervalSet) Contains(item int) bool {
 	if i.intervals == nil {
 		return false
 	}
@@ -327,4 +333,14 @@ func (i *IntervalSet) elementName(literalNames []string, symbolicNames []string,
 
 		return symbolicNames[a]
 	}
+}
+
+func (i *IntervalSet) ToList() []int {
+	result := []int{}
+	for _, interval := range i.intervals {
+		for j := interval.Start; j < interval.Stop; j++ {
+			result = append(result, j)
+		}
+	}
+	return result
 }

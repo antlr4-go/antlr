@@ -151,8 +151,8 @@ func (as *BaseATNState) isNonGreedyExitState() bool {
 
 func (as *BaseATNState) AddTransition(trans Transition, index int) {
 	if len(as.transitions) == 0 {
-		as.epsilonOnlyTransitions = trans.getIsEpsilon()
-	} else if as.epsilonOnlyTransitions != trans.getIsEpsilon() {
+		as.epsilonOnlyTransitions = trans.GetIsEpsilon()
+	} else if as.epsilonOnlyTransitions != trans.GetIsEpsilon() {
 		_, _ = fmt.Fprintf(os.Stdin, "ATN state %d has both epsilon and non-epsilon transitions.\n", as.stateNumber)
 		as.epsilonOnlyTransitions = false
 	}

@@ -20,11 +20,11 @@ import (
 //  ATN transitions.</p>
 
 type Transition interface {
-	getTarget() ATNState
+	GetTarget() ATNState
 	setTarget(ATNState)
-	getIsEpsilon() bool
-	getLabel() *IntervalSet
-	getSerializationType() int
+	GetIsEpsilon() bool
+	GetLabel() *IntervalSet
+	GetSerializationType() int
 	Matches(int, int, int) bool
 }
 
@@ -52,7 +52,7 @@ func NewBaseTransition(target ATNState) *BaseTransition {
 	return t
 }
 
-func (t *BaseTransition) getTarget() ATNState {
+func (t *BaseTransition) GetTarget() ATNState {
 	return t.target
 }
 
@@ -60,15 +60,15 @@ func (t *BaseTransition) setTarget(s ATNState) {
 	t.target = s
 }
 
-func (t *BaseTransition) getIsEpsilon() bool {
+func (t *BaseTransition) GetIsEpsilon() bool {
 	return t.isEpsilon
 }
 
-func (t *BaseTransition) getLabel() *IntervalSet {
+func (t *BaseTransition) GetLabel() *IntervalSet {
 	return t.intervalSet
 }
 
-func (t *BaseTransition) getSerializationType() int {
+func (t *BaseTransition) GetSerializationType() int {
 	return t.serializationType
 }
 
@@ -185,6 +185,10 @@ func (t *RuleTransition) Matches(_, _, _ int) bool {
 	return false
 }
 
+func (t *RuleTransition) GetFollowState() ATNState {
+	return t.followState
+}
+
 type EpsilonTransition struct {
 	BaseTransition
 	outermostPrecedenceReturn int
@@ -292,7 +296,7 @@ func (t *PredicateTransition) Matches(_, _, _ int) bool {
 	return false
 }
 
-func (t *PredicateTransition) getPredicate() *Predicate {
+func (t *PredicateTransition) GetPredicate() *Predicate {
 	return NewPredicate(t.ruleIndex, t.predIndex, t.isCtxDependent)
 }
 
@@ -349,7 +353,7 @@ func NewSetTransition(target ATNState, set *IntervalSet) *SetTransition {
 }
 
 func (t *SetTransition) Matches(symbol, _, _ int) bool {
-	return t.intervalSet.contains(symbol)
+	return t.intervalSet.Contains(symbol)
 }
 
 func (t *SetTransition) String() string {
@@ -380,7 +384,7 @@ func NewNotSetTransition(target ATNState, set *IntervalSet) *NotSetTransition {
 }
 
 func (t *NotSetTransition) Matches(symbol, minVocabSymbol, maxVocabSymbol int) bool {
-	return symbol >= minVocabSymbol && symbol <= maxVocabSymbol && !t.intervalSet.contains(symbol)
+	return symbol >= minVocabSymbol && symbol <= maxVocabSymbol && !t.intervalSet.Contains(symbol)
 }
 
 func (t *NotSetTransition) String() string {
