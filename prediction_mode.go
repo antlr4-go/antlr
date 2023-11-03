@@ -463,7 +463,7 @@ func PredictionModegetUniqueAlt(altsets []*BitSet) int {
 func PredictionModeGetAlts(altsets []*BitSet) *BitSet {
 	all := NewBitSet()
 	for _, alts := range altsets {
-		all.or(alts)
+		all.Or(alts)
 	}
 	return all
 }
@@ -482,7 +482,7 @@ func PredictionModegetConflictingAltSubsets(configs *ATNConfigSet) []*BitSet {
 			alts = NewBitSet()
 			configToAlts.Put(c, alts)
 		}
-		alts.add(c.GetAlt())
+		alts.Add(c.GetAlt())
 	}
 
 	return configToAlts.Values()
@@ -501,7 +501,7 @@ func PredictionModeGetStateToAltMap(configs *ATNConfigSet) *AltDict {
 			alts = NewBitSet()
 			m.put(c.GetState().String(), alts)
 		}
-		alts.(*BitSet).add(c.GetAlt())
+		alts.(*BitSet).Add(c.GetAlt())
 	}
 	return m
 }

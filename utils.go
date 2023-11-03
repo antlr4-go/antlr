@@ -82,7 +82,7 @@ func NewBitSet() *BitSet {
 	return &BitSet{}
 }
 
-func (b *BitSet) add(value int) {
+func (b *BitSet) Add(value int) {
 	idx := indexForBit(value)
 	if idx >= len(b.data) {
 		size := wordsNeeded(value)
@@ -101,7 +101,7 @@ func (b *BitSet) clear(index int) {
 	b.data[idx] &= ^maskForBit(index)
 }
 
-func (b *BitSet) or(set *BitSet) {
+func (b *BitSet) Or(set *BitSet) {
 	// Get min size necessary to represent the bits in both sets.
 	bLen := b.minLen()
 	setLen := set.minLen()
@@ -118,11 +118,11 @@ func (b *BitSet) or(set *BitSet) {
 	}
 }
 
-func (b *BitSet) remove(value int) {
+func (b *BitSet) Remove(value int) {
 	b.clear(value)
 }
 
-func (b *BitSet) contains(value int) bool {
+func (b *BitSet) Contains(value int) bool {
 	idx := indexForBit(value)
 	if idx >= len(b.data) {
 		return false

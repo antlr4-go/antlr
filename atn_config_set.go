@@ -59,7 +59,7 @@ type ATNConfigSet struct {
 func (b *ATNConfigSet) Alts() *BitSet {
 	alts := NewBitSet()
 	for _, it := range b.configs {
-		alts.add(it.GetAlt())
+		alts.Add(it.GetAlt())
 	}
 	return alts
 }

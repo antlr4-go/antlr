@@ -103,7 +103,7 @@ func (d *DiagnosticErrorListener) getConflictingAlts(ReportedAlts *BitSet, set *
 	}
 	result := NewBitSet()
 	for _, c := range set.configs {
-		result.add(c.GetAlt())
+		result.Add(c.GetAlt())
 	}
 
 	return result

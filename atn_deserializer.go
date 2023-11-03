@@ -213,14 +213,14 @@ func (a *ATNDeserializer) readSets(_ *ATN, sets []*IntervalSet) []*IntervalSet {
 		containsEOF := a.readInt()
 
 		if containsEOF != 0 {
-			iset.addOne(-1)
+			iset.AddOne(-1)
 		}
 
 		for j := 0; j < n; j++ {
 			i1 := a.readInt()
 			i2 := a.readInt()
 
-			iset.addRange(i1, i2)
+			iset.AddRange(i1, i2)
 		}
 	}
 

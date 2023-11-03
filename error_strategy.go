@@ -132,7 +132,7 @@ func (d *DefaultErrorStrategy) Recover(recognizer Parser, _ RecognitionException
 	if d.lastErrorStates == nil {
 		d.lastErrorStates = NewIntervalSet()
 	}
-	d.lastErrorStates.addOne(recognizer.GetState())
+	d.lastErrorStates.AddOne(recognizer.GetState())
 	followSet := d.GetErrorRecoverySet(recognizer)
 	d.consumeUntil(recognizer, followSet)
 }
