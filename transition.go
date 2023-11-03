@@ -150,7 +150,7 @@ func NewAtomTransition(target ATNState, intervalSet int) *AtomTransition {
 
 func (t *AtomTransition) makeLabel() *IntervalSet {
 	s := NewIntervalSet()
-	s.addOne(t.label)
+	s.AddOne(t.label)
 	return s
 }
 
@@ -234,7 +234,7 @@ func NewRangeTransition(target ATNState, start, stop int) *RangeTransition {
 
 func (t *RangeTransition) makeLabel() *IntervalSet {
 	s := NewIntervalSet()
-	s.addRange(t.start, t.stop)
+	s.AddRange(t.start, t.stop)
 	return s
 }
 
@@ -347,7 +347,7 @@ func NewSetTransition(target ATNState, set *IntervalSet) *SetTransition {
 		t.intervalSet = set
 	} else {
 		t.intervalSet = NewIntervalSet()
-		t.intervalSet.addOne(TokenInvalidType)
+		t.intervalSet.AddOne(TokenInvalidType)
 	}
 	return t
 }
@@ -377,7 +377,7 @@ func NewNotSetTransition(target ATNState, set *IntervalSet) *NotSetTransition {
 		t.intervalSet = set
 	} else {
 		t.intervalSet = NewIntervalSet()
-		t.intervalSet.addOne(TokenInvalidType)
+		t.intervalSet.AddOne(TokenInvalidType)
 	}
 
 	return t

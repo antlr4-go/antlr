@@ -80,11 +80,11 @@ func (i *IntervalSet) first() int {
 	return i.intervals[0].Start
 }
 
-func (i *IntervalSet) addOne(v int) {
+func (i *IntervalSet) AddOne(v int) {
 	i.AddInterval(NewInterval(v, v+1))
 }
 
-func (i *IntervalSet) addRange(l, h int) {
+func (i *IntervalSet) AddRange(l, h int) {
 	i.AddInterval(NewInterval(l, h+1))
 }
 
@@ -162,7 +162,7 @@ func (i *IntervalSet) Contains(item int) bool {
 	return false
 }
 
-func (i *IntervalSet) length() int {
+func (i *IntervalSet) Length() int {
 	iLen := 0
 
 	for _, v := range i.intervals {

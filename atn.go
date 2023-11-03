@@ -172,7 +172,7 @@ func (a *ATN) getExpectedTokens(stateNumber int, ctx RuleContext) *IntervalSet {
 	}
 
 	if following.Contains(TokenEpsilon) {
-		expected.addOne(TokenEOF)
+		expected.AddOne(TokenEOF)
 	}
 
 	return expected

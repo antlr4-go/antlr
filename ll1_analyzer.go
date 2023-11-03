@@ -45,7 +45,7 @@ func (la *LL1Analyzer) getDecisionLookahead(s ATNState) []*IntervalSet {
 
 		// Wipe out lookahead for la alternative if we found nothing,
 		// or we had a predicate when we !seeThruPreds
-		if look[alt].length() == 0 || look[alt].Contains(LL1AnalyzerHitPred) {
+		if look[alt].Length() == 0 || look[alt].Contains(LL1AnalyzerHitPred) {
 			look[alt] = nil
 		}
 	}
@@ -133,10 +133,10 @@ func (la *LL1Analyzer) look1(s, stopState ATNState, ctx *PredictionContext, look
 	}
 	if s == stopState {
 		if ctx == nil {
-			look.addOne(TokenEpsilon)
+			look.AddOne(TokenEpsilon)
 			return
 		} else if ctx.isEmpty() && addEOF {
-			look.addOne(TokenEOF)
+			look.AddOne(TokenEOF)
 			return
 		}
 	}
@@ -145,21 +145,21 @@ func (la *LL1Analyzer) look1(s, stopState ATNState, ctx *PredictionContext, look
 
 	if ok {
 		if ctx == nil {
-			look.addOne(TokenEpsilon)
+			look.AddOne(TokenEpsilon)
 			return
 		} else if ctx.isEmpty() && addEOF {
-			look.addOne(TokenEOF)
+			look.AddOne(TokenEOF)
 			return
 		}
 
 		if ctx.pcType != PredictionContextEmpty {
-			removed := calledRuleStack.contains(s.GetRuleIndex())
+			removed := calledRuleStack.Contains(s.GetRuleIndex())
 			defer func() {
 				if removed {
-					calledRuleStack.add(s.GetRuleIndex())
+					calledRuleStack.Add(s.GetRuleIndex())
 				}
 			}()
-			calledRuleStack.remove(s.GetRuleIndex())
+			calledRuleStack.Remove(s.GetRuleIndex())
 			// run thru all possible stack tops in ctx
 			for i := 0; i < ctx.length(); i++ {
 				returnState := la.atn.states[ctx.getReturnState(i)]
@@ -175,7 +175,7 @@ func (la *LL1Analyzer) look1(s, stopState ATNState, ctx *PredictionContext, look
 		t := s.GetTransitions()[i]
 
 		if t1, ok := t.(*RuleTransition); ok {
-			if calledRuleStack.contains(t1.GetTarget().GetRuleIndex()) {
+			if calledRuleStack.Contains(t1.GetTarget().GetRuleIndex()) {
 				continue
 			}
 
@@ -185,12 +185,12 @@ func (la *LL1Analyzer) look1(s, stopState ATNState, ctx *PredictionContext, look
 			if seeThruPreds {
 				la.look1(t2.GetTarget(), stopState, ctx, look, lookBusy, calledRuleStack, seeThruPreds, addEOF)
 			} else {
-				look.addOne(LL1AnalyzerHitPred)
+				look.AddOne(LL1AnalyzerHitPred)
 			}
 		} else if t.GetIsEpsilon() {
 			la.look1(t.GetTarget(), stopState, ctx, look, lookBusy, calledRuleStack, seeThruPreds, addEOF)
 		} else if _, ok := t.(*WildcardTransition); ok {
-			look.addRange(TokenMinUserTokenType, la.atn.maxTokenType)
+			look.AddRange(TokenMinUserTokenType, la.atn.maxTokenType)
 		} else {
 			set := t.GetLabel()
 			if set != nil {
@@ -209,10 +209,10 @@ func (la *LL1Analyzer) look3(stopState ATNState, ctx *PredictionContext, look *I
 	newContext := SingletonBasePredictionContextCreate(ctx, t1.followState.GetStateNumber())
 
 	defer func() {
-		calledRuleStack.remove(t1.GetTarget().GetRuleIndex())
+		calledRuleStack.Remove(t1.GetTarget().GetRuleIndex())
 	}()
 
-	calledRuleStack.add(t1.GetTarget().GetRuleIndex())
+	calledRuleStack.Add(t1.GetTarget().GetRuleIndex())
 	la.look1(t1.GetTarget(), stopState, newContext, look, lookBusy, calledRuleStack, seeThruPreds, addEOF)
 
 }

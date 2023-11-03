@@ -809,7 +809,7 @@ func (p *ParserATNSimulator) getPredsForAmbigAlts(ambigAlts *BitSet, configs *AT
 
 	altToPred := make([]SemanticContext, nalts+1)
 	for _, c := range configs.configs {
-		if ambigAlts.contains(c.GetAlt()) {
+		if ambigAlts.Contains(c.GetAlt()) {
 			altToPred[c.GetAlt()] = SemanticContextorContext(altToPred[c.GetAlt()], c.GetSemanticContext())
 		}
 	}
@@ -838,7 +838,7 @@ func (p *ParserATNSimulator) getPredicatePredictions(ambigAlts *BitSet, altToPre
 	for i := 1; i < len(altToPred); i++ {
 		pred := altToPred[i]
 		// un-predicated is indicated by SemanticContextNONE
-		if ambigAlts != nil && ambigAlts.contains(i) {
+		if ambigAlts != nil && ambigAlts.Contains(i) {
 			pairs = append(pairs, NewPredPrediction(pred, i))
 		}
 		if pred != SemanticContextNone {
@@ -911,10 +911,10 @@ func (p *ParserATNSimulator) GetAltThatFinishedDecisionEntryRule(configs *ATNCon
 		_, ok := c.GetState().(*RuleStopState)
 
 		if c.GetReachesIntoOuterContext() > 0 || (ok && c.GetContext().hasEmptyPath()) {
-			alts.addOne(c.GetAlt())
+			alts.AddOne(c.GetAlt())
 		}
 	}
-	if alts.length() == 0 {
+	if alts.Length() == 0 {
 		return ATNInvalidAltNumber
 	}
 
@@ -965,7 +965,7 @@ func (p *ParserATNSimulator) evalSemanticContext(predPredictions []*PredPredicti
 	for i := 0; i < len(predPredictions); i++ {
 		pair := predPredictions[i]
 		if pair.pred == SemanticContextNone {
-			predictions.add(pair.alt)
+			predictions.Add(pair.alt)
 			if !complete {
 				break
 			}
@@ -980,7 +980,7 @@ func (p *ParserATNSimulator) evalSemanticContext(predPredictions []*PredPredicti
 			if runtimeConfig.parserATNSimulatorDebug || runtimeConfig.parserATNSimulatorDFADebug {
 				fmt.Println("PREDICT " + fmt.Sprint(pair.alt))
 			}
-			predictions.add(pair.alt)
+			predictions.Add(pair.alt)
 			if !complete {
 				break
 			}
@@ -1458,7 +1458,7 @@ func (p *ParserATNSimulator) getConflictingAltsOrUniqueAlt(configs *ATNConfigSet
 	var conflictingAlts *BitSet
 	if configs.uniqueAlt != ATNInvalidAltNumber {
 		conflictingAlts = NewBitSet()
-		conflictingAlts.add(configs.uniqueAlt)
+		conflictingAlts.Add(configs.uniqueAlt)
 	} else {
 		conflictingAlts = configs.conflictingAlts
 	}
