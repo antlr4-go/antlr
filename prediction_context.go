@@ -116,6 +116,9 @@ func (p *PredictionContext) Hash() int {
 }
 
 func (p *PredictionContext) Equals(other Collectable[*PredictionContext]) bool {
+	if p == other {
+		return true
+	}
 	switch p.pcType {
 	case PredictionContextEmpty:
 		otherP := other.(*PredictionContext)
@@ -150,10 +153,8 @@ func (p *PredictionContext) ArrayEquals(o Collectable[*PredictionContext]) bool 
 
 	// Must compare the actual array elements and not just the array address
 	//
-	return slices.Equal(p.returnStates, other.returnStates) &&
-		slices.EqualFunc(p.parents, other.parents, func(x, y *PredictionContext) bool {
-			return x.Equals(y)
-		})
+	return intSlicesEqual(p.returnStates, other.returnStates) &&
+		pcSliceEqual(p.parents, other.parents)
 }
 
 func (p *PredictionContext) SingletonEquals(other Collectable[*PredictionContext]) bool {
@@ -161,7 +162,7 @@ func (p *PredictionContext) SingletonEquals(other Collectable[*PredictionContext
 		return false
 	}
 	otherP := other.(*PredictionContext)
-	if otherP == nil {
+	if otherP == nil || otherP.pcType != PredictionContextSingleton {
 		return false
 	}
 
