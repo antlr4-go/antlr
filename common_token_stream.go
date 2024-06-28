@@ -351,19 +351,8 @@ func (c *CommonTokenStream) GetTextFromInterval(interval Interval) string {
 		stop = len(c.tokens) - 1
 	}
 
-	s := ""
-
-	for i := start; i < stop+1; i++ {
-		t := c.tokens[i]
-
-		if t.GetTokenType() == TokenEOF {
-			break
-		}
-
-		s += t.GetText()
-	}
-
-	return s
+	input := c.tokenSource.GetInputStream()
+	return input.GetText(c.tokens[start].GetStart(), c.tokens[stop].GetStop())
 }
 
 // Fill gets all tokens from the lexer until EOF.

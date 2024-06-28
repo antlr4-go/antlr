@@ -7,8 +7,6 @@ package antlr
 import (
 	"fmt"
 	"strconv"
-
-	"golang.org/x/exp/slices"
 )
 
 var _emptyPredictionContextHash int
